@@ -15,10 +15,15 @@ function Login({ navigation }) {
     const { logged, updateLogged } = useLogged();
 
     useEffect(() => {
-        if (logged) {
-            navigation.navigate('HomePage');
+        try {
+            if (logged) {
+                navigation.navigate('HomePage');
+            }
+        } catch (error) {
+            console.error('Navigation error:', error);
         }
     }, [logged, navigation]);
+    
 
     const handleLogin = () => {
         console.log('Email: ' + email);
@@ -27,6 +32,7 @@ function Login({ navigation }) {
         // Update the logged state
         console.log('updated the logged state NOB')
         updateLogged(true);
+        //goToSignup(); handle things after login;
     };
 
     const goToSignup = () => {
@@ -76,6 +82,7 @@ function Login({ navigation }) {
         </ImageBackground>
     );
 }
+
 
 const styles = StyleSheet.create({
     main: {
