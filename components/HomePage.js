@@ -27,6 +27,9 @@ export default function HomePage() {
           <Stack.Screen name="Signup" component={Signup} />
         </Stack.Navigator>
       )}
+      {/* <Stack.Navigator>
+        <Stack.Screen name = "Home" component={HomeScreen} screenOptions={{ headerShown: false }}/>
+      </Stack.Navigator> */}
     </>
   );
 }

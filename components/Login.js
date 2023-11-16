@@ -28,12 +28,19 @@ function Login({ navigation }) {
     const handleLogin = () => {
         console.log('Email: ' + email);
         console.log('Password: ' + password);
-
+      
         // Update the logged state
-        console.log('updated the logged state NOB')
+        console.log('updated the logged state NOB');
         updateLogged(true);
-        //goToSignup(); handle things after login;
-    };
+
+        setTimeout(() => {
+
+        }, 3000)
+      
+        // Navigate to the Home screen
+        navigation.navigate('HomePage');
+      };
+      
 
     const goToSignup = () => {
         navigation.navigate('Signup');

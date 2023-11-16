@@ -5,6 +5,7 @@ export const useLogged = () => {
 
   const updateLogged = (value) => {
     setLogged(value);
+    console.log("val of logged in updateLogged(): " + logged);
   };
 
   return { logged, updateLogged };
