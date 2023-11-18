@@ -17,7 +17,7 @@ export default function HomePage() {
 
   return (
     <>
-      {logged ? (
+      {/* {logged ? (
         <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen} />
         </Stack.Navigator>
@@ -26,10 +26,13 @@ export default function HomePage() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={Signup} />
         </Stack.Navigator>
-      )}
-      {/* <Stack.Navigator>
-        <Stack.Screen name = "Home" component={HomeScreen} screenOptions={{ headerShown: false }}/>
-      </Stack.Navigator> */}
+      )} */}
+      
+      <Stack.Navigator>
+        <Stack.Screen name = "Login" component={Login} />
+        <Stack.Screen name = "Home" component={HomeScreen} />
+        <Stack.Screen name = "Signup" component={Signup} />
+      </Stack.Navigator>
     </>
   );
 }

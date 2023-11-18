@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // importing components:
 import HomePage from './components/HomePage';
+import Login from './components/Login';
 import colors from './globals/Colors';
 
 const Stack = createStackNavigator();
@@ -43,6 +44,11 @@ const App = () => {
           name="HomePage"
           component={HomePage}
         />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

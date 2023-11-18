@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import colors from '../globals/Colors';
 
 // importing globals:
 import { useLogged } from '../globals/Variables';
+
+// importing components:
+import Signup from './Signup';
 
 // Get the device's screen height and width
 const screenHeight = Dimensions.get('window').height;
@@ -23,28 +26,24 @@ function Login({ navigation }) {
             console.error('Navigation error:', error);
         }
     }, [logged, navigation]);
-    
 
     const handleLogin = () => {
         console.log('Email: ' + email);
         console.log('Password: ' + password);
-      
+
         // Update the logged state
         console.log('updated the logged state NOB');
         updateLogged(true);
 
-        setTimeout(() => {
+        setTimeout(() => {}, 3000);
 
-        }, 3000)
-      
         // Navigate to the Home screen
-        navigation.navigate('HomePage');
-      };
-      
+        navigation.navigate('HomeScreen');
+    };
 
     const goToSignup = () => {
         navigation.navigate('Signup');
-    }
+    };
 
     return (
         <ImageBackground
@@ -63,7 +62,7 @@ function Login({ navigation }) {
                         style={styles.input}
                         placeholder="Enter your email"
                         value={email}
-                        onChangeText={text => setEmail(text)}
+                        onChangeText={(text) => setEmail(text)}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -75,14 +74,15 @@ function Login({ navigation }) {
                         placeholder="Enter your password"
                         secureTextEntry={true}
                         value={password}
-                        onChangeText={text => setPassword(text)}
+                        onChangeText={(text) => setPassword(text)}
                     />
                 </View>
-                <Button title="Login" onPress={handleLogin} />
-                <Text
-                    style={styles.signup_text}
-                    onPress={() => goToSignup()}
+                <TouchableOpacity style={styles.loginButton} 
+                  onPress={navigation.navigate("HomeScreen")}
                 >
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
+                <Text style={styles.signup_text} onPress={goToSignup}>
                     Don't have an account? Click to sign in.
                 </Text>
             </View>
@@ -90,14 +90,13 @@ function Login({ navigation }) {
     );
 }
 
-
 const styles = StyleSheet.create({
     main: {
         backgroundColor: colors.black,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1, 
-        height: screenHeight, 
+        flex: 1,
+        height: screenHeight,
         width: screenWidth,
     },
     signup: {
@@ -133,19 +132,30 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'white',
     },
-    
-    provide_details_text: { 
-        color: 'white', 
-        margin: 5, 
-        textAlign: 'center', 
-        marginBottom: 15 
+
+    provide_details_text: {
+        color: 'white',
+        margin: 5,
+        textAlign: 'center',
+        marginBottom: 15,
     },
-    signup_text: { 
-        color: 'white', 
+    signup_text: {
+        color: 'white',
         marginTop: 15,
-        textDecorationLine: 'underline', 
-        textAlign: 'center' 
-    }
+        textDecorationLine: 'underline',
+        textAlign: 'center',
+    },
+    loginButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginTop: 10,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
 });
 
 export default Login;
