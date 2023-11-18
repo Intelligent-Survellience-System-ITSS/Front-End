@@ -5,8 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // importing components:
-import HomePage from './components/HomePage';
+// import HomePage from './components/HomePage';
 import Login from './components/Login';
+import Signup from './components/Signup';
+import HomeScreen from './components/HomeScreen';
 import colors from './globals/Colors';
 
 const Stack = createStackNavigator();
@@ -16,7 +18,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      navigation.replace("HomePage");
+      navigation.replace("Login");
     }, 3000);
 
     return () => clearTimeout(timeoutId); // Clear the timeout if the component unmounts
@@ -40,13 +42,21 @@ const App = () => {
           name="SplashScreen"
           component={SplashScreen}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="HomePage"
           component={HomePage}
-        />
+        /> */}
         <Stack.Screen
           name="Login"
           component={Login}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+        />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
         />
 
       </Stack.Navigator>

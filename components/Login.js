@@ -15,27 +15,27 @@ const screenWidth = Dimensions.get('window').width;
 function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { logged, updateLogged } = useLogged();
+    // const { logged, updateLogged } = useLogged();
 
-    useEffect(() => {
-        try {
-            if (logged) {
-                navigation.navigate('HomePage');
-            }
-        } catch (error) {
-            console.error('Navigation error:', error);
-        }
-    }, [logged, navigation]);
+    // useEffect(() => {
+    //     try {
+    //         if (logged) {
+    //             navigation.navigate('HomeScreen');
+    //         }
+    //     } catch (error) {
+    //         console.error('Navigation error:', error);
+    //     }
+    // }, [logged, navigation]);
 
     const handleLogin = () => {
         console.log('Email: ' + email);
         console.log('Password: ' + password);
 
-        // Update the logged state
-        console.log('updated the logged state NOB');
-        updateLogged(true);
+        // // Update the logged state
+        // console.log('updated the logged state NOB');
+        // updateLogged(true);
 
-        setTimeout(() => {}, 3000);
+        // setTimeout(() => {}, 3000);
 
         // Navigate to the Home screen
         navigation.navigate('HomeScreen');
@@ -78,7 +78,7 @@ function Login({ navigation }) {
                     />
                 </View>
                 <TouchableOpacity style={styles.loginButton} 
-                  onPress={navigation.navigate("HomeScreen")}
+                  onPress={handleLogin}
                 >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
