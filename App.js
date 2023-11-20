@@ -1,6 +1,3 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,27 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import HomeScreen from './components/HomeScreen';
-import colors from './globals/Colors';
+import SplashScreen from './components/Splash';
 
 const Stack = createStackNavigator();
-
-const SplashScreen = () => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      navigation.replace("Login");
-    }, 3000);
-
-    return () => clearTimeout(timeoutId); // Clear the timeout if the component unmounts
-  }, [navigation]);
-
-  return (
-    <View style={styles.splashView}>
-      <Text style={styles.splashText}>ITSS</Text>
-    </View>
-  );
-};
 
 const App = () => {
   return (
@@ -63,19 +42,5 @@ const App = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  splashView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  splashText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.orange,
-  },
-});
 
 export default App;
