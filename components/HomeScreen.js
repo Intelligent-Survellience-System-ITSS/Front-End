@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-// import * as Permissions from 'expo-permissions';
+import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo vector icons
+
+// importing components:
+import Header from './Header';
+import colors from '../globals/Colors';
 
 const HomeScreen = () => {
   const [videoFiles, setVideoFiles] = useState([]);
@@ -47,24 +51,27 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.main}>
-      <ScrollView>
-        {videoFiles.map((video, index) => (
-          <View key={index} style={styles.videoContainer}>
-            {/* Placeholder image or actual video thumbnail */}
-            {isWeb ? (
-              <Image
-                source={{ uri: 'https://example.com/placeholder.jpg' }}
-                style={styles.videoThumbnail}
-              />
-            ) : (
+      <Header />
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Here are the CCTVs</Text>
+        <Ionicons name="chevron-down" size={24} style={styles.icon} />
+      </View>
+      <ScrollView style={styles.ScrollViewContainer}>
+        {videoFiles.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No video files found.</Text>
+          </View>
+        ) : (
+          videoFiles.map((video, index) => (
+            <View key={index} style={styles.videoContainer}>
               <Image
                 source={{ uri: `${FileSystem.documentDirectory}videos/${video}` }}
                 style={styles.videoThumbnail}
               />
-            )}
-            <Text style={styles.videoText}>{video}</Text>
-          </View>
-        ))}
+              <Text style={styles.videoText}>{video}</Text>
+            </View>
+          ))
+        )}
       </ScrollView>
     </View>
   );
@@ -73,8 +80,34 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: colors.black_darker,
+  },
+  headerContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  icon: {
+    color: colors.white, 
+    marginLeft: 8
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.white,
+    textAlign: 'center',
+  },
+  scrollViewContainer: {
+    width: '95%', // Adjust the width as needed
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: colors.orange,
+    borderRadius: 10, // Adjust the border radius as needed
+    overflow: 'hidden', // Ensure rounded corners are applied
+  },
+  scrollView: {
+    marginBottom: 10, // Adjust the margin as needed
   },
   videoContainer: {
     flexDirection: 'row',
@@ -85,10 +118,21 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 10,
-    borderColor: 'black',
+    borderColor: colors.black,
   },
   videoText: {
     fontSize: 16,
+    color: colors.white,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  emptyText: {
+    fontSize: 18,
+    color: colors.white,
   },
 });
 
