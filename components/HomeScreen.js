@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo vector icons
+import { Ionicons } from '@expo/vector-icons';
 
 // importing components:
 import Header from './Header';
@@ -13,39 +13,30 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchVideoFiles = async () => {
       try {
-        // Check if the platform is web
-        const isWeb = typeof window !== 'undefined';
-
-        if (isWeb) {
-          console.warn('File system operations are not supported on the web platform.');
-          // You might want to use a placeholder or fetch video files from a different source on the web
-          return;
-        }
-
         const videosDirectory = `${FileSystem.documentDirectory}videos`;
 
-        // Check if the directory exists
+        // check if the directory exists
         const directoryInfo = await FileSystem.getInfoAsync(videosDirectory);
 
         if (!directoryInfo.exists || !directoryInfo.isDirectory) {
-          // If the directory doesn't exist, create it
+          // if the directory doesn't exist, create it
           await FileSystem.makeDirectoryAsync(videosDirectory, { intermediates: true });
         }
 
-        // Read files from the directory
+        // read files from the directory
         const files = await FileSystem.readDirectoryAsync(videosDirectory);
 
         const videoFileNames = files
           .filter((file) => file.endsWith('.mp4'))
-          .map((file) => file);
+          .map((file) => `${videosDirectory}/${file}`);
 
         setVideoFiles(videoFileNames);
       } catch (error) {
-        console.error('Error reading video files:', error);
+        console.error('error reading video files:', error);
       }
     };
 
-    // Call the function when the component mounts
+    // call the function when the component mounts
     fetchVideoFiles();
   }, []);
 
@@ -54,9 +45,8 @@ const HomeScreen = () => {
       <Header />
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Here are the CCTVs</Text>
-        <Ionicons name="chevron-down" size={24} style={styles.icon} />
       </View>
-      <ScrollView style={styles.ScrollViewContainer}>
+      <ScrollView style={styles.scrollViewContainer}>
         {videoFiles.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No video files found.</Text>
@@ -65,7 +55,7 @@ const HomeScreen = () => {
           videoFiles.map((video, index) => (
             <View key={index} style={styles.videoContainer}>
               <Image
-                source={{ uri: `${FileSystem.documentDirectory}videos/${video}` }}
+                source={{ uri: video }} // updated this line
                 style={styles.videoThumbnail}
               />
               <Text style={styles.videoText}>{video}</Text>
@@ -97,17 +87,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.white,
     textAlign: 'center',
+    margin: 5
   },
   scrollViewContainer: {
-    width: '95%', // Adjust the width as needed
+    width: '95%', 
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: colors.orange,
-    borderRadius: 10, // Adjust the border radius as needed
-    overflow: 'hidden', // Ensure rounded corners are applied
+    borderRadius: 10, 
+    // overflow: 'hidden', 
   },
   scrollView: {
-    marginBottom: 10, // Adjust the margin as needed
+    marginBottom: 10,
   },
   videoContainer: {
     flexDirection: 'row',
