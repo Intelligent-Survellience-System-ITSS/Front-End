@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
+import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // importing components:
 import Header from './Header';
 import colors from '../globals/Colors';
+
+// conditionally import VideoThumbnail based on the platform
+let VideoThumbnail;
+if (Platform.OS !== 'web') {
+  VideoThumbnail = require('react-native-thumbnail-video').Thumbnail;
+}
 
 const HomeScreen = () => {
   const [videoFiles, setVideoFiles] = useState([]);
@@ -13,7 +21,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchVideoFiles = async () => {
       try {
-        const videosDirectory = `${FileSystem.documentDirectory}videos`;
+        const videosDirectory = `${FileSystem.documentDirectory}assets/videos`;
 
         // check if the directory exists
         const directoryInfo = await FileSystem.getInfoAsync(videosDirectory);
@@ -40,30 +48,46 @@ const HomeScreen = () => {
     fetchVideoFiles();
   }, []);
 
+  const playVideo = async (videoPath) => {
+    const soundObject = new Audio.Sound();
+
+    try {
+      await soundObject.loadAsync({ uri: videoPath });
+      await soundObject.playAsync();
+    } catch (error) {
+      console.error('Error playing video:', error);
+    }
+  };
+
   return (
-    <View style={styles.main}>
-      <Header />
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Here are the CCTVs</Text>
-      </View>
-      <ScrollView style={styles.scrollViewContainer}>
-        {videoFiles.length === 0 ? (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No video files found.</Text>
-          </View>
-        ) : (
-          videoFiles.map((video, index) => (
-            <View key={index} style={styles.videoContainer}>
-              <Image
-                source={{ uri: video }} // updated this line
-                style={styles.videoThumbnail}
-              />
-              <Text style={styles.videoText}>{video}</Text>
+    <SafeAreaView>
+      <View style={styles.main}>
+        <Header />
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Here are the CCTVs</Text>
+        </View>
+        <ScrollView style={styles.scrollViewContainer}>
+          {videoFiles.length === 0 ? (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No video files found.</Text>
             </View>
-          ))
-        )}
-      </ScrollView>
-    </View>
+          ) : (
+            videoFiles.map((video, index) => (
+              <TouchableOpacity key={index} style={styles.videoContainer} onPress={() => playVideo(video)}>
+                {VideoThumbnail && (
+                  <VideoThumbnail
+                    url={video}
+                    onPress={() => playVideo(video)}
+                    containerStyle={styles.videoThumbnailContainer}
+                  />
+                )}
+                <Text style={styles.videoText}>{video}</Text>
+              </TouchableOpacity>
+            ))
+          )}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -71,6 +95,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: colors.black_darker,
+    paddingTop: 20,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -78,38 +103,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
-  icon: {
-    color: colors.white, 
-    marginLeft: 8
-  },
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.white,
     textAlign: 'center',
-    margin: 5
+    margin: 5,
   },
   scrollViewContainer: {
-    width: '95%', 
+    width: '95%',
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: colors.orange,
-    borderRadius: 10, 
-    // overflow: 'hidden', 
-  },
-  scrollView: {
-    marginBottom: 10,
+    borderRadius: 10,
   },
   videoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
   },
-  videoThumbnail: {
+  videoThumbnailContainer: {
     width: 50,
     height: 50,
     marginRight: 10,
-    borderColor: colors.black,
   },
   videoText: {
     fontSize: 16,

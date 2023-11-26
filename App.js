@@ -8,6 +8,7 @@ import Signup from './components/Signup';
 import HomeScreen from './components/HomeScreen';
 import SplashScreen from './components/Splash';
 import ProfileScreen from './components/ProfileScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,9 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="SplashScreen"
-        headerMode="none"
+        screenOptions={{
+          headerShown: false
+        }}
       >
         <Stack.Screen
           name="SplashScreen"

@@ -3,9 +3,11 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // importing globals:
 import colors from '../globals/Colors';
+
 
 export default function Header() {
   const navigation = useNavigation();
@@ -26,34 +28,40 @@ export default function Header() {
     setMenuVisible(!isMenuVisible);
   };
 
+  const goToLogin = () => {
+    navigation.replace("Login")
+  }
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
-        <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
-      </TouchableOpacity>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
+          <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.headerItem} onPress={handleITSSClick}>
-        <Text style={styles.ITSS}>ITSS</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.headerItem} onPress={handleITSSClick}>
+          <Text style={styles.ITSS}>ITSS</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.headerItem} onPress={toggleMenu}>
-        <Ionicons name="menu-outline" size={24} color={colors.white} style={styles.icon} />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.headerItem} onPress={toggleMenu}>
+          <Ionicons name="menu-outline" size={24} color={colors.white} style={styles.icon} />
+        </TouchableOpacity>
 
-      <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
-        <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
-            <Text style={styles.menuItemText}>Button 1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 2')}>
-            <Text style={styles.menuItemText}>Button 2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 3')}>
-            <Text style={styles.menuItemText}>Button 3</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-    </View>
+        <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
+              <Text style={styles.menuItemText}>Button 1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 2')}>
+              <Text style={styles.menuItemText}>Button 2</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem} onPress={goToLogin}>
+              <Text style={styles.menuItemText}>Log out</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
+    </SafeAreaView>
   );
 }
 

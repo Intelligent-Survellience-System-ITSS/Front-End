@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native'; 
+
 // importing globals:
 import colors from '../globals/Colors';
 
@@ -7,6 +10,8 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 function Signup() {
+  const navigation = useNavigation();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,79 +35,81 @@ function Signup() {
   };
 
   return (
-    <ImageBackground
-      source={require('../assets/signup_bg.jpg')}
-      style={{ ...styles.main, width: screenWidth, height: screenHeight }}
-    >
-      <View style={styles.container}>
-        <Text style={styles.signup}>Sign Up</Text>
-        <Text style={styles.normal_text}>
-          Please provide these details to create an account
-        </Text>
+    <SafeAreaView>
+      <ImageBackground
+        source={require('../assets/pictures/signup_bg.jpg')}
+        style={{ ...styles.main, width: screenWidth, height: screenHeight }}
+      >
+        <View style={styles.container}>
+          <Text style={styles.signup}>Sign Up</Text>
+          <Text style={styles.normal_text}>
+            Please provide these details to create an account
+          </Text>
 
-        <Text style={styles.label}>First Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your first name"
-          value={firstName}
-          onChangeText={(text) => setFirstName(text)}
-        />
+          <Text style={styles.label}>First Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your first name"
+            value={firstName}
+            onChangeText={(text) => setFirstName(text)}
+          />
 
-        <Text style={styles.label}>Last Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your last name"
-          value={lastName}
-          onChangeText={(text) => setLastName(text)}
-        />
+          <Text style={styles.label}>Last Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your last name"
+            value={lastName}
+            onChangeText={(text) => setLastName(text)}
+          />
 
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
 
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your password"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
 
-        <Text style={styles.label}>Designation</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your designation"
-          value={designation}
-          onChangeText={(text) => setDesignation(text)}
-        />
+          <Text style={styles.label}>Designation</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your designation"
+            value={designation}
+            onChangeText={(text) => setDesignation(text)}
+          />
 
-        <Text style={styles.label}>Phone Number</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your phone number"
-          value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text)}
-        />
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your phone number"
+            value={phoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
+          />
 
-        <Text style={styles.label}>Employee ID</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your employee ID"
-          value={employeeId}
-          onChangeText={(text) => setEmployeeId(text)}
-        />
+          <Text style={styles.label}>Employee ID</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your employee ID"
+            value={employeeId}
+            onChangeText={(text) => setEmployeeId(text)}
+          />
 
-        <Button title="Sign Up" onPress={handleSignup} />
-        <Text style={styles.login_text} onPress={() => goToLogin()}>
-          Already have an account? Click to login.
-        </Text>
-      </View>
-    </ImageBackground>
+          <Button title="Sign Up" onPress={handleSignup} />
+          <Text style={styles.login_text} onPress={() => goToLogin()}>
+            Already have an account? Click to login.
+          </Text>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import colors from '../globals/Colors';
 
 // importing globals:
@@ -38,7 +39,7 @@ function Login({ navigation }) {
         // setTimeout(() => {}, 3000);
 
         // Navigate to the Home screen
-        navigation.navigate('HomeScreen');
+        navigation.replace('HomeScreen');
     };
 
     const goToSignup = () => {
@@ -46,47 +47,50 @@ function Login({ navigation }) {
     };
 
     return (
-        <ImageBackground
-            source={require('../assets/courthouse-building.jpg')}
-            style={styles.main}>
-            <View style={styles.container}>
-                <Text style={styles.signup}>Login</Text>
-                <Text style={styles.provide_details_text}>
-                    Please provide these details to login
-                </Text>
-                <View style={styles.inputContainer}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Email</Text>
+        <SafeAreaView>
+            <ImageBackground
+                source={require('../assets/pictures/courthouse-building.jpg')}
+                style={styles.main}>
+
+                <View style={styles.container}>
+                    <Text style={styles.signup}>Login</Text>
+                    <Text style={styles.provide_details_text}>
+                        Please provide these details to login
+                    </Text>
+                    <View style={styles.inputContainer}>
+                        <View style={styles.labelContainer}>
+                            <Text style={styles.label}>Email</Text>
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter your email"
+                            value={email}
+                            onChangeText={(text) => setEmail(text)}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter your email"
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Password</Text>
+                    <View style={styles.inputContainer}>
+                        <View style={styles.labelContainer}>
+                            <Text style={styles.label}>Password</Text>
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter your password"
+                            secureTextEntry={true}
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter your password"
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={(text) => setPassword(text)}
-                    />
+                    <TouchableOpacity style={styles.loginButton} 
+                    onPress={handleLogin}
+                    >
+                        <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.signup_text} onPress={goToSignup}>
+                        Don't have an account? Click to sign in.
+                    </Text>
                 </View>
-                <TouchableOpacity style={styles.loginButton} 
-                  onPress={handleLogin}
-                >
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.signup_text} onPress={goToSignup}>
-                    Don't have an account? Click to sign in.
-                </Text>
-            </View>
-        </ImageBackground>
+            </ImageBackground>
+        </SafeAreaView>
     );
 }
 

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // importing components:
 import colors from '../globals/Colors';
@@ -17,9 +18,11 @@ const SplashScreen = () => {
     }, [navigation]);
   
     return (
-      <View style={styles.splashView}>
-        <Text style={styles.splashText}>ITSS</Text>
-      </View>
+      <SafeAreaView>
+        <View style={styles.splashView}>
+          <Text style={styles.splashText}>ITSS</Text>
+        </View>
+      </SafeAreaView>
     );
   };
 

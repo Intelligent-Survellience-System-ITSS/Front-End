@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../globals/Colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen({ navigation }) {
   const [firstName, setFirstName] = useState('John');
@@ -18,7 +19,6 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const handleUpdateProfile = () => {
-    // Perform the logic to update the profile on your backend or storage
     // For demonstration purposes, we will just log the updated values
     console.log('Updated Profile:');
     console.log('First Name:', firstName);
@@ -28,7 +28,7 @@ export default function ProfileScreen({ navigation }) {
   };
 
   return (
-    <>
+    <SafeAreaView>
         <View style={styles.header}>
             <TouchableOpacity onPress={goBack}>
             <Ionicons name="arrow-back" size={24} style={styles.icon} />
@@ -91,7 +91,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.itssText}>ITSS</Text>
         </TouchableOpacity>
         </View>
-    </>
+    </SafeAreaView>
   );
 }
 
