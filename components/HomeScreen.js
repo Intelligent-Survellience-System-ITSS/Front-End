@@ -4,6 +4,7 @@ import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 // importing components:
 import Header from './Header';
@@ -16,6 +17,11 @@ if (Platform.OS !== 'web') {
 }
 
 const HomeScreen = () => {
+
+  const [fontsLoaded] = useFonts ({
+    'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf')
+  })
+
   const [videoFiles, setVideoFiles] = useState([]);
 
   useEffect(() => {
@@ -111,6 +117,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     textAlign: 'center',
     margin: 5,
+    fontFamily: 'Raleway-Regular'
   },
   scrollViewContainer: {
     width: '95%',
@@ -132,6 +139,7 @@ const styles = StyleSheet.create({
   videoText: {
     fontSize: 16,
     color: colors.white,
+    fontFamily: 'Raleway-Regular'
   },
   emptyContainer: {
     flex: 1,
@@ -142,6 +150,7 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     color: colors.white,
+    fontFamily: 'Raleway-Regular'
   },
 });
 
