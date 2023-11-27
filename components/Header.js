@@ -4,12 +4,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 // importing globals:
 import colors from '../globals/Colors';
 
 
 export default function Header() {
+
+  const [fontsLoaded] = useFonts({
+    'Inter-Regular': require('../assets/fonts/Inter/Inter-Regular.ttf'),
+  });
+
   const navigation = useNavigation();
   const [isMenuVisible, setMenuVisible] = useState(false);
 
@@ -33,8 +39,9 @@ export default function Header() {
   }
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
+    <SafeAreaView
+      style={styles.container}
+    >
         <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
           <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
         </TouchableOpacity>
@@ -60,7 +67,6 @@ export default function Header() {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
     </SafeAreaView>
   );
 }
@@ -88,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.orange,
+    fontFamily: 'Inter-Regular'
   },
   modalContainer: {
     backgroundColor: colors.black,

@@ -3,8 +3,15 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../globals/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 export default function ProfileScreen({ navigation }) {
+
+  const [fontsLoaded] = useFonts ({
+    'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
+    'Inter-Black': require('../assets/fonts/Inter/Inter-Black.ttf')
+  }) 
+
   const [firstName, setFirstName] = useState('John');
   const [lastName, setLastName] = useState('Doe');
   const [designation, setDesignation] = useState('Software Engineer');
@@ -28,7 +35,9 @@ export default function ProfileScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={styles.container}
+    >
         <View style={styles.header}>
             <TouchableOpacity onPress={goBack}>
             <Ionicons name="arrow-back" size={24} style={styles.icon} />
@@ -117,6 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.orange,
     marginLeft: 10,
+    fontFamily: 'Raleway-Regular'
   },
   content: {
     flex: 1,
@@ -128,15 +138,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.orange,
     marginBottom: 30,
+    fontFamily: 'Inter-Black'
   },
   inputContainer: {
     marginBottom: 15,
     width: '100%',
+    fontFamily: 'Raleway-Regular'
   },
   label: {
     fontSize: 16,
     color: colors.white,
     marginBottom: 8,
+    fontFamily: 'Raleway-Regular'
   },
   input: {
     height: 40,
@@ -145,6 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     color: colors.white,
+    fontFamily: 'Raleway-Regular'
   },
   updateButton: {
     backgroundColor: colors.orange,
@@ -157,6 +171,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: 'bold',
     fontSize: 16,
+    fontFamily: 'Raleway-Regular'
   },
   itssContainer: {
     position: 'absolute',
@@ -167,5 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.orange,
+    fontFamily: 'Raleway-Regular'
   },
 });

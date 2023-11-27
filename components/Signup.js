@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native'; 
+import { useFonts } from 'expo-font';
 
 // importing globals:
 import colors from '../globals/Colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 function Signup() {
+
+  const [fontsLoaded] = useFonts({
+    'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
+  });
+
   const navigation = useNavigation();
 
   const [firstName, setFirstName] = useState('');
@@ -35,7 +42,9 @@ function Signup() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{ ...styles.main, width: screenWidth, height: screenHeight }}
+    >
       <ImageBackground
         source={require('../assets/pictures/signup_bg.jpg')}
         style={{ ...styles.main, width: screenWidth, height: screenHeight }}
@@ -103,7 +112,10 @@ function Signup() {
             onChangeText={(text) => setEmployeeId(text)}
           />
 
-          <Button title="Sign Up" onPress={handleSignup} />
+          <TouchableOpacity onPress={handleSignup}>
+            <Text style={styles.buttonText}>Signup</Text>
+          </TouchableOpacity>
+
           <Text style={styles.login_text} onPress={() => goToLogin()}>
             Already have an account? Click to login.
           </Text>
@@ -126,11 +138,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 15,
     color: 'white',
+    fontFamily: 'Raleway-Regular'
   },
   normal_text: {
     color: 'white',
     margin: 10,
     textAlign: 'center',
+    fontFamily: 'Raleway-Regular'
   },
   container: {
     padding: 16,
@@ -143,6 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     color: 'white',
+    fontFamily: 'Raleway-Regular'
   },
   input: {
     height: 40,
@@ -152,13 +167,22 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 5,
     backgroundColor: 'white',
+    fontFamily: 'Raleway-Regular'
   },
   login_text: {
     color: 'white',
     marginTop: 15,
     textDecorationLine: 'underline',
     textAlign: 'center',
+    fontFamily: 'Raleway-Regular'
   },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontFamily: 'Raleway-Regular',
+    margin: 10
+},
 });
 
 export default Signup;
