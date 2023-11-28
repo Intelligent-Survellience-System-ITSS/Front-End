@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.black,
-    overflowY: "show"
+    overflowY: "show",
+    margin: 15
   },
   signup: {
     fontSize: 36,

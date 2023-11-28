@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: colors.orange,
-    borderRadius: 10,
+    borderTop: 5
   },
   videoContainer: {
     flexDirection: 'row',
