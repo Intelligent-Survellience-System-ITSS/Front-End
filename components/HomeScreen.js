@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
 import { Audio } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
+// import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
+import { Video } from 'expo-av';
 
 // importing components:
 import Header from './Header';
 import colors from '../globals/Colors';
 
 // conditionally import VideoThumbnail based on the platform
-let VideoThumbnail;
-if (Platform.OS !== 'web') {
-  VideoThumbnail = require('react-native-thumbnail-video').Thumbnail;
-}
+// let VideoThumbnail;
+// if (Platform.OS !== 'web') {
+//   VideoThumbnail = require('react-native-thumbnail-video').Thumbnail;
+// }
+
+const MenuButton = ({ onPress }) => (
+  <TouchableOpacity style={styles.menuButton} onPress={onPress}>
+    <Ionicons name="menu-outline" size={24} color={colors.white} />
+  </TouchableOpacity>
+);
 
 const HomeScreen = () => {
 
@@ -22,77 +29,48 @@ const HomeScreen = () => {
     'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf')
   })
 
-  const [videoFiles, setVideoFiles] = useState([]);
+  const video1 = React.useRef(null);
+  const video2 = React.useRef(null);
 
-  useEffect(() => {
-    const fetchVideoFiles = async () => {
-      try {
-        const videosDirectory = `${FileSystem.documentDirectory}assets/videos`;
-
-        // check if the directory exists
-        const directoryInfo = await FileSystem.getInfoAsync(videosDirectory);
-
-        if (!directoryInfo.exists || !directoryInfo.isDirectory) {
-          // if the directory doesn't exist, create it
-          await FileSystem.makeDirectoryAsync(videosDirectory, { intermediates: true });
-        }
-
-        // read files from the directory
-        const files = await FileSystem.readDirectoryAsync(videosDirectory);
-
-        const videoFileNames = files
-          .filter((file) => file.endsWith('.mp4'))
-          .map((file) => `${videosDirectory}/${file}`);
-
-        setVideoFiles(videoFileNames);
-      } catch (error) {
-        console.error('error reading video files:', error);
-      }
-    };
-
-    // call the function when the component mounts
-    fetchVideoFiles();
-  }, []);
-
-  const playVideo = async (videoPath) => {
-    const soundObject = new Audio.Sound();
-
-    try {
-      await soundObject.loadAsync({ uri: videoPath });
-      await soundObject.playAsync();
-    } catch (error) {
-      console.error('Error playing video:', error);
-    }
-  };
+  const [statusVideo1, setStatusVideo1] = React.useState();
+  const [statusVideo2, setStatusVideo2] = React.useState();
 
   return (
     <SafeAreaView
       style={styles.main}
     >
       <View style={styles.main}>
-        <Header />
+        <Header title ='Footages'/>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Here are the CCTVs</Text>
         </View>
         <ScrollView style={styles.scrollViewContainer}>
-          {videoFiles.length === 0 ? (
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No video files found.</Text>
-            </View>
-          ) : (
-            videoFiles.map((video, index) => (
-              <TouchableOpacity key={index} style={styles.videoContainer} onPress={() => playVideo(video)}>
-                {VideoThumbnail && (
-                  <VideoThumbnail
-                    url={video}
-                    onPress={() => playVideo(video)}
-                    containerStyle={styles.videoThumbnailContainer}
-                  />
-                )}
-                <Text style={styles.videoText}>{video}</Text>
-              </TouchableOpacity>
-            ))
-          )}
+        <View style={styles.videoContainer}>
+            <MenuButton onPress={() => console.log('Menu button for Video 1')} />
+            <Video
+              ref={video1}
+              style={styles.video}
+              source={require('../assets/videos/video1.mp4')}
+              useNativeControls
+              resizeMode="contain"
+              isLooping
+              onPlaybackStatusUpdate={setStatusVideo1}
+            />
+          </View>
+
+          <View style={styles.videoContainer}>
+            <MenuButton onPress={() => console.log('Menu button for Video 2')} />
+            <Video
+              ref={video2}
+              style={styles.video}
+              source={require('../assets/videos/video2.mp4')}
+              useNativeControls
+              resizeMode="contain"
+              isLooping
+              onPlaybackStatusUpdate={setStatusVideo2}
+            />
+          </View>
+          
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -103,7 +81,6 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: colors.black_darker,
-    paddingTop: 20,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -120,37 +97,26 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-Regular'
   },
   scrollViewContainer: {
-    width: '95%',
+    flex: 1,
+    width: '100%',
     alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: colors.orange,
-    borderTop: 5
+    backgroundColor: colors.black_darker
+    // alignItems: 'center',
+    // justifyContent: 'center'
+  },
+  video: {
+    margin: 10,
+    width: '95%',
+    aspectRatio: 16 / 9,
   },
   videoContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 10,
+    marginVertical: 10,
   },
-  videoThumbnailContainer: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-  },
-  videoText: {
-    fontSize: 16,
-    color: colors.white,
-    fontFamily: 'Raleway-Regular'
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50,
-  },
-  emptyText: {
-    fontSize: 18,
-    color: colors.white,
-    fontFamily: 'Raleway-Regular'
+
+  menuButton: {
+    marginHorizontal: 10,
   },
 });
 

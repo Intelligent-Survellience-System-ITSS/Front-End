@@ -10,7 +10,7 @@ import { useFonts } from 'expo-font';
 import colors from '../globals/Colors';
 
 
-export default function Header() {
+export default function Header({ title }) {
 
   const [fontsLoaded] = useFonts({
     'Inter-Regular': require('../assets/fonts/Inter/Inter-Regular.ttf'),
@@ -77,15 +77,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     borderBottomColor: colors.white,
-    flex: 0.1,
+    // flex: 0,
     justifyContent: 'space-between', // equal spacing between the views
     alignItems: 'center',
     backgroundColor: colors.black,
+    // paddingBottom: 10,
   },
   headerItem: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center',    
+    paddingBottom: 10,
   },
   icon: {
     fontWeight: 'bold',
@@ -103,8 +105,8 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     paddingVertical: 15,
-    borderBottomWidth: 0.5,
-    borderBottomColor: colors.white,
+    // borderBottomWidth: 0.5,
+    // borderBottomColor: colors.white,
   },
   menuItemText: {
     color: colors.white,
