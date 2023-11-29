@@ -10,6 +10,7 @@ import { Video } from 'expo-av';
 // importing components:
 import Header from './Header';
 import colors from '../globals/Colors';
+import VideoOptions from './VideoOptions';
 
 // conditionally import VideoThumbnail based on the platform
 // let VideoThumbnail;
@@ -32,8 +33,19 @@ const HomeScreen = () => {
   const video1 = React.useRef(null);
   const video2 = React.useRef(null);
 
+  // states to handle videos
   const [statusVideo1, setStatusVideo1] = React.useState();
   const [statusVideo2, setStatusVideo2] = React.useState();
+
+  // states to handle video options
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  // function to handle option selection
+  const handleOptionSelection = (option) => {
+    console.log('Selected Option: ${option}');
+    setIsModalVisible(false);
+  }
 
   return (
     <SafeAreaView
@@ -45,8 +57,9 @@ const HomeScreen = () => {
           <Text style={styles.headerText}>Here are the CCTVs</Text>
         </View>
         <ScrollView style={styles.scrollViewContainer}>
-        <View style={styles.videoContainer}>
-            <MenuButton onPress={() => console.log('Menu button for Video 1')} />
+
+          <View style={styles.videoContainer}>
+            <MenuButton onPress={() => {setIsModalVisible(true)}} />
             <Video
               ref={video1}
               style={styles.video}
@@ -57,6 +70,12 @@ const HomeScreen = () => {
               onPlaybackStatusUpdate={setStatusVideo1}
             />
           </View>
+
+          <VideoOptions 
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            onOptionSelect={handleOptionSelection}
+          />
 
           <View style={styles.videoContainer}>
             <MenuButton onPress={() => console.log('Menu button for Video 2')} />
@@ -70,7 +89,7 @@ const HomeScreen = () => {
               onPlaybackStatusUpdate={setStatusVideo2}
             />
           </View>
-          
+            
         </ScrollView>
       </View>
     </SafeAreaView>

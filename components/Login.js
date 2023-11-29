@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get('window').width;
 function Login({ navigation }) {
 
     const [fontsLoaded] = useFonts({
-        'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
+        'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),  
       });
 
     const [email, setEmail] = useState('');

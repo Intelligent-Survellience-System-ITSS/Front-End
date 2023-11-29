@@ -35,6 +35,8 @@ function Signup() {
     console.log('Designation: ' + designation);
     console.log('Phone Number: ' + phoneNumber);
     console.log('Employee ID: ' + employeeId);
+
+    navigation.replace("Login");
   };
 
   const goToLogin = () => {
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.black,
     overflowY: "show",
-    margin: 15
+    marginTop: 10
   },
   signup: {
     fontSize: 36,
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 16,
+    marginBottom: 20,
     paddingLeft: 10,
     borderRadius: 5,
     backgroundColor: 'white',
