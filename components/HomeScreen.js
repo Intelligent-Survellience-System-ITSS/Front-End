@@ -78,7 +78,7 @@ const HomeScreen = () => {
           />
 
           <View style={styles.videoContainer}>
-            <MenuButton onPress={() => console.log('Menu button for Video 2')} />
+            <MenuButton onPress={() => {setIsModalVisible(true)}} />
             <Video
               ref={video2}
               style={styles.video}
@@ -89,6 +89,12 @@ const HomeScreen = () => {
               onPlaybackStatusUpdate={setStatusVideo2}
             />
           </View>
+
+          <VideoOptions 
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            onOptionSelect={handleOptionSelection}
+          />
             
         </ScrollView>
       </View>

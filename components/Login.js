@@ -1,49 +1,28 @@
-import React, { useState, useEffect } from 'react';
+// Import the necessary components and libraries
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
+import { FontAwesome5 } from '@expo/vector-icons'; // Import FontAwesome5
 
 // importing globals:
 import colors from '../globals/Colors';
-import { useLogged } from '../globals/Variables';
-
-// importing components:
-import Signup from './Signup';
 
 // Get the device's screen height and width
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 function Login({ navigation }) {
-
     const [fontsLoaded] = useFonts({
-        'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),  
-      });
+        'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
+    });
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const { logged, updateLogged } = useLogged();
-
-    // useEffect(() => {
-    //     try {
-    //         if (logged) {
-    //             navigation.navigate('HomeScreen');
-    //         }
-    //     } catch (error) {
-    //         console.error('Navigation error:', error);
-    //     }
-    // }, [logged, navigation]);
 
     const handleLogin = () => {
         console.log('Email: ' + email);
         console.log('Password: ' + password);
-        // console.log('Fonts Loaded:', fontsLoaded);
-
-        // // Update the logged state
-        // console.log('updated the logged state NOB');
-        // updateLogged(true);
-
-        // setTimeout(() => {}, 3000);
 
         // Navigate to the Home screen
         navigation.replace('HomeScreen');
@@ -89,9 +68,8 @@ function Login({ navigation }) {
                             onChangeText={(text) => setPassword(text)}
                         />
                     </View>
-                    <TouchableOpacity style={styles.loginButton} 
-                    onPress={handleLogin}
-                    >
+                    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                        <FontAwesome5 name="sign-in-alt" size={20} color="white" style={styles.loginIcon} />
                         <Text style={styles.buttonText}>Login</Text>
                     </TouchableOpacity>
                     <Text style={styles.signup_text} onPress={goToSignup}>
@@ -164,10 +142,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway-Regular'
     },
     loginButton: {
+        flexDirection: 'row',
         backgroundColor: colors.primary,
         paddingVertical: 10,
         borderRadius: 5,
         marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
         fontFamily: 'Raleway-Regular'
     },
     buttonText: {
@@ -175,6 +156,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         fontFamily: 'Raleway-Regular',
+    },
+    loginIcon: {
+        marginRight: 10,
     },
 });
 

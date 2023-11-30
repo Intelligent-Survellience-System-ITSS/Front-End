@@ -9,11 +9,10 @@ import { useFonts } from 'expo-font';
 // importing globals:
 import colors from '../globals/Colors';
 
-
 export default function Header({ title }) {
-
   const [fontsLoaded] = useFonts({
     'Inter-Regular': require('../assets/fonts/Inter/Inter-Regular.ttf'),
+    'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
   });
 
   const navigation = useNavigation();
@@ -35,38 +34,35 @@ export default function Header({ title }) {
   };
 
   const goToLogin = () => {
-    navigation.replace("Login")
-  }
+    navigation.replace('Login');
+  };
 
   return (
-    <SafeAreaView
-      style={styles.container}
-    >
-        <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
-          <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
+        <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.headerItem} onPress={handleITSSClick}>
-          <Text style={styles.ITSS}>ITSS</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.headerItem} onPress={handleITSSClick}>
+        <Text style={styles.ITSS}>ITSS</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.headerItem} onPress={toggleMenu}>
-          <Ionicons name="menu-outline" size={24} color={colors.white} style={styles.icon} />
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.headerItem} onPress={toggleMenu}>
+        <Ionicons name="menu-outline" size={24} color={colors.white} style={styles.icon} />
+      </TouchableOpacity>
 
-        <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
-              <Text style={styles.menuItemText}>Button 1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 2')}>
-              <Text style={styles.menuItemText}>Button 2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem} onPress={goToLogin}>
-              <Text style={styles.menuItemText}>Log out</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+      <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
+            <Ionicons name="settings-outline" size={24} color={colors.white} style={styles.menuIcon} />
+            <Text style={styles.menuItemText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem} onPress={goToLogin}>
+            <Ionicons name="log-out-outline" size={24} color={colors.white} style={styles.menuIcon} />
+            <Text style={styles.menuItemText}>Log out</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -77,16 +73,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     borderBottomColor: colors.white,
-    // flex: 0,
-    justifyContent: 'space-between', // equal spacing between the views
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.black,
-    // paddingBottom: 10,
   },
   headerItem: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',    
+    justifyContent: 'center',
     paddingBottom: 10,
   },
   icon: {
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.orange,
-    fontFamily: 'Inter-Regular'
+    fontFamily: 'Inter-Regular',
   },
   modalContainer: {
     backgroundColor: colors.black,
@@ -104,14 +98,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 15,
-    // borderBottomWidth: 0.5,
-    // borderBottomColor: colors.white,
+    justifyContent: 'center',
+  },
+  menuIcon: {
+    marginRight: 10,
   },
   menuItemText: {
     color: colors.white,
     fontSize: 16,
     textAlign: 'center',
-    fontFamily: 'Raleway-Regular'
+    fontFamily: 'Raleway-Regular',
   },
 });

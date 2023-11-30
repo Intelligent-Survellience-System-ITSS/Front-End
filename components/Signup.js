@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 // importing globals:
 import colors from '../globals/Colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
+// Get the device's screen height and width
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 function Signup() {
-
   const [fontsLoaded] = useFonts({
     'Raleway-Regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
   });
@@ -36,7 +37,7 @@ function Signup() {
     console.log('Phone Number: ' + phoneNumber);
     console.log('Employee ID: ' + employeeId);
 
-    navigation.replace("Login");
+    navigation.replace('Login');
   };
 
   const goToLogin = () => {
@@ -44,16 +45,14 @@ function Signup() {
   };
 
   return (
-    <SafeAreaView
-      style={{ ...styles.main, width: screenWidth, height: screenHeight }}
-    >
+    <SafeAreaView style={styles.main}>
       <ImageBackground
         source={require('../assets/pictures/signup_bg.jpg')}
-        style={{ ...styles.main, width: screenWidth, height: screenHeight }}
+        style={styles.backgroundImage}
       >
         <View style={styles.container}>
           <Text style={styles.signup}>Sign Up</Text>
-          <Text style={styles.normal_text}>
+          <Text style={styles.normalText}>
             Please provide these details to create an account
           </Text>
 
@@ -114,11 +113,12 @@ function Signup() {
             onChangeText={(text) => setEmployeeId(text)}
           />
 
-          <TouchableOpacity onPress={handleSignup}>
+          <TouchableOpacity onPress={handleSignup} style={styles.signupButton}>
             <Text style={styles.buttonText}>Signup</Text>
+            <FontAwesome5 name="user-plus" size={20} color="white" style={styles.icon} />
           </TouchableOpacity>
 
-          <Text style={styles.login_text} onPress={() => goToLogin()}>
+          <Text style={styles.loginText} onPress={goToLogin}>
             Already have an account? Click to login.
           </Text>
         </View>
@@ -143,7 +143,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Raleway-Regular'
   },
-  normal_text: {
+  signupButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    fontFamily: 'Raleway-Regular',
+  },
+  normalText: {
     color: 'white',
     margin: 10,
     textAlign: 'center',
@@ -172,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontFamily: 'Raleway-Regular'
   },
-  login_text: {
+  loginText: {
     color: 'white',
     marginTop: 15,
     textDecorationLine: 'underline',
@@ -186,6 +196,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-Regular',
     margin: 10
 },
+  icon: {
+    marginLeft: 5,
+  },
+  loginText: {
+    color: 'white',
+    marginTop: 15,
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+    fontFamily: 'Raleway-Regular',
+  },
 });
 
 export default Signup;
