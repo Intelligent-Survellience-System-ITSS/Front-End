@@ -8,6 +8,7 @@ import Signup from './components/Signup';
 import HomeScreen from './components/HomeScreen';
 import SplashScreen from './components/Splash';
 import ProfileScreen from './components/ProfileScreen';
+import Settings from './components/Settings';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ const App = () => {
         <Stack.Screen
           name='ProfileScreen'
           component={ProfileScreen}
+        />
+
+        <Stack.Screen
+          name='Settings'
+          component={Settings}
         />
 
       </Stack.Navigator>
