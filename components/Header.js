@@ -37,10 +37,6 @@ export default function Header({ title }) {
     navigation.replace('Login');
   };
 
-  const goToSettings = () => {
-    navigation.navigate('Settings');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
@@ -57,7 +53,7 @@ export default function Header({ title }) {
 
       <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.menuItem} onPress={goToSettings}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
             <Ionicons name="settings-outline" size={24} color={colors.white} style={styles.menuIcon} />
             <Text style={styles.menuItemText}>Settings</Text>
           </TouchableOpacity>

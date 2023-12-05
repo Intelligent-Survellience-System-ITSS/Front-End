@@ -51,7 +51,8 @@ const HomeScreen = () => {
     <SafeAreaView
       style={styles.main}
     >
-      <Header title ='Footages'/>
+      <View style={styles.main}>
+        <Header title ='Footages'/>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Here are the CCTVs</Text>
         </View>
@@ -94,7 +95,9 @@ const HomeScreen = () => {
             onClose={() => setIsModalVisible(false)}
             onOptionSelect={handleOptionSelection}
           />
+            
         </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

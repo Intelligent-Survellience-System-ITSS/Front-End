@@ -28,37 +28,25 @@ const SplashScreen = () => {
       style={styles.splashView}
     >
       <View style={styles.splashView}>
-        <Text style={styles.splashText}>
-          I T S S
-        </Text>
-
-        <Text style={styles.text}>
-          ITSS your eyes on the road
-        </Text>
-
+        <Text style={styles.splashText}>ITSS</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  splashView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.black,
-  },
-  splashText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.orange,
-    fontFamily: 'Inter-ExtraBold'
-  },
-  text: {
-    fontSize: 16,
-    color: colors.white,
-    margin: 10
-  }
-});
+  const styles = StyleSheet.create({
+    splashView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.black,
+    },
+    splashText: {
+      fontSize: 32,
+      fontWeight: 'bold',
+      color: colors.orange,
+      fontFamily: 'Inter-ExtraBold'
+    },
+  });
 
 export default SplashScreen;
