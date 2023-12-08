@@ -73,7 +73,7 @@ function Login({ navigation }) {
                         <Text style={styles.buttonText}>Login</Text>
                     </TouchableOpacity>
                     <Text style={styles.signup_text} onPress={goToSignup}>
-                        Don't have an account? Click to sign in.
+                        Don't have an account? Click to sign up.
                     </Text>
                 </View>
             </ImageBackground>

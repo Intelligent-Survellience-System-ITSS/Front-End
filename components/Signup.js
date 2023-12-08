@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -8,6 +8,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 // importing globals:
 import colors from '../globals/Colors';
+
+// importing components:
 
 // Get the device's screen height and width
 const screenHeight = Dimensions.get('window').height;
@@ -37,7 +39,7 @@ function Signup() {
     console.log('Phone Number: ' + phoneNumber);
     console.log('Employee ID: ' + employeeId);
 
-    navigation.replace('Login');
+    navigation.replace('WelcomeScreen');
   };
 
   const goToLogin = () => {
@@ -46,6 +48,7 @@ function Signup() {
 
   return (
     <SafeAreaView style={styles.main}>
+        <ScrollView>
       <ImageBackground
         source={require('../assets/pictures/signup_bg.jpg')}
         style={styles.backgroundImage}
@@ -123,6 +126,7 @@ function Signup() {
           </Text>
         </View>
       </ImageBackground>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -132,9 +136,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.black,
-    overflowY: "show",
-    marginTop: 10
+  },
+  backgroundImage: {
+    width: screenWidth,
+    height: screenHeight,
   },
   signup: {
     fontSize: 36,

@@ -37,8 +37,17 @@ export default function Header({ title }) {
     navigation.replace('Login');
   };
 
+  const goToAbout = () => {
+    navigation.navigate('AboutUs');
+  }
+
+  const goToSettings = () => {
+    navigation.navigate('Settings');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+
       <TouchableOpacity style={styles.headerItem} onPress={handleProfileClick}>
         <Ionicons name="person-outline" size={24} color={colors.white} style={styles.icon} />
       </TouchableOpacity>
@@ -53,16 +62,25 @@ export default function Header({ title }) {
 
       <Modal isVisible={isMenuVisible} onBackdropPress={toggleMenu}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Button 1')}>
+
+          <TouchableOpacity style={styles.menuItem} onPress={goToAbout}>
+            <Ionicons name="information-circle-outline" size={24} color={colors.white} style={styles.menuIcon} />
+            <Text style={styles.menuItemText}>About Us</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem} onPress={goToSettings}>
             <Ionicons name="settings-outline" size={24} color={colors.white} style={styles.menuIcon} />
             <Text style={styles.menuItemText}>Settings</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.menuItem} onPress={goToLogin}>
             <Ionicons name="log-out-outline" size={24} color={colors.white} style={styles.menuIcon} />
             <Text style={styles.menuItemText}>Log out</Text>
           </TouchableOpacity>
+
         </View>
       </Modal>
+
     </SafeAreaView>
   );
 }
